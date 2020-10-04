@@ -1,0 +1,30 @@
+<form [formGroup]="currencyForm">
+
+  <mat-form-field>
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date" formControlName="dateStart">
+      <input matEndDate placeholder="End date" formControlName="dateEnd">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <span class="space"></span>
+
+  <mat-form-field>
+    <mat-label>Base currency</mat-label>
+    <mat-select formControlName="baseCurrency">
+      <mat-option *ngFor="let currency of currencySelectList$|async"
+                  [value]="currency.name">
+        {{currency.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <span class="space"></span>
+
+  <button mat-button (click)="onClearClick()">Clear</button>
+</form>
+<app-currency-table [currencyList]="currencyList$ | async"
+                    [isDateColumn]="true"></app-currency-table>
