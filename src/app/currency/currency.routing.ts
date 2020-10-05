@@ -17,6 +17,7 @@ export const routes: Routes = [
             path: 'date-range',
             component: CurrencyByDateRangeComponent,
           },
+          { path: '', redirectTo: 'date', pathMatch: 'full' },
         ]
     },
 ];

@@ -1,9 +1,17 @@
 <mat-toolbar color="primary">
   <span class="title">{{title}}</span>
+
   <span class="space"></span>
-  <button mat-flat-button color="primary" [routerLink]="['date']">By Date</button>
+
+  <button mat-flat-button
+          color="primary"
+          [routerLink]="['date']">By Date</button>
+
   <span class="space"></span>
-  <button mat-flat-button color="primary" [routerLink]="['date-range']">By Date Range</button>
+
+  <button mat-flat-button
+          color="primary"
+          [routerLink]="['date-range']">By Date Range</button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

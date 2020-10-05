@@ -12,7 +12,7 @@ export class CurrencyService {
   url = 'https://api.exchangeratesapi.io/';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) { }
 
   get(params: string = 'latest'): Observable<Currency[]> {
@@ -22,7 +22,7 @@ export class CurrencyService {
         .map((curr) => new Currency(curr, res.rates[curr]))
       ),
       catchError(error => {
-        // todo show errors
+        console.error(error);
         return of([]);
       })
     );
@@ -39,7 +39,7 @@ export class CurrencyService {
       map((arrays) => [].concat.apply([], arrays)),
 
       catchError(error => {
-        // todo show errors
+        console.error(error);
         return of([]);
       })
     );

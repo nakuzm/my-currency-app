@@ -49,13 +49,7 @@ export class CurrencyByDateComponent implements OnInit {
           (baseCurrency ? '?base=' + baseCurrency : '');
       }),
 
-      switchMap((params: string) => this.currencyService.get(params).pipe(
-        catchError(error => {
-          console.log(error);
-          // todo show errors
-          return of([]);
-        })
-      )),
+      switchMap((params: string) => this.currencyService.get(params)),
     );
   }
 

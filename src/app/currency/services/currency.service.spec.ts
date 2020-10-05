@@ -1,12 +1,3 @@
-import { TestBed } from '@angular/core/testing';
+describe('CurrencyService', () => {
 
-import { CurrencyService } from './currency.service';
-
-describe('ExchangeRatesService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
-
-  it('should be created', () => {
-    const service: CurrencyService = TestBed.get(CurrencyService);
-    expect(service).toBeTruthy();
-  });
 });

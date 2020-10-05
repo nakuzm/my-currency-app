@@ -57,12 +57,6 @@ export class CurrencyByDateRangeComponent implements OnInit {
 
       switchMap((params: string) => iif(() => !!params,
         this.currencyService.getRange(params), of([])
-      ).pipe(
-        catchError(error => {
-          console.log(error);
-          // todo show errors
-          return of([]);
-        })
       )),
     );
   }
