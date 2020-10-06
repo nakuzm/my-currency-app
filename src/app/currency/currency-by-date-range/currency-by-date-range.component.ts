@@ -40,24 +40,7 @@ export class CurrencyByDateRangeComponent implements OnInit {
             a.baseCurrency === b.baseCurrency;
         }
       ),
-
-      map((formState) => [
-        formState.baseCurrency,
-        this.currencyService.formatDate(formState.dateStart),
-        this.currencyService.formatDate(formState.dateEnd),
-      ]),
-
-      map(([baseCurrency, dateStart, dateEnd]) => {
-
-        if (dateStart && dateEnd) {
-          return `history?start_at=${dateStart}&end_at=${dateEnd}` +
-            (baseCurrency ? '&base=' + baseCurrency : '');
-        }
-      }),
-
-      switchMap((params: string) => iif(() => !!params,
-        this.currencyService.getRange(params), of([])
-      )),
+      switchMap((formState) => this.currencyService.getRange(formState)),
     );
   }
 

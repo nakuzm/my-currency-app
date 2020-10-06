@@ -22,4 +22,14 @@ describe('CurrencyTableComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('if isDateColumn is truthy, show date column', () => {
+    component.isDateColumn = true;
+    expect(component.displayedColumns).toContain('date');
+  });
+
+  it('if isDateColumn is falsy, do not show date column', () => {
+    component.isDateColumn = false;
+    expect(component.displayedColumns).not.toContain('date');
+  });
 });

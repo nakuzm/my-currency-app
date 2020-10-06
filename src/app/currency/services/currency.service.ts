@@ -15,7 +15,32 @@ export class CurrencyService {
     private http: HttpClient,
   ) { }
 
-  get(params: string = 'latest'): Observable<Currency[]> {
+  getParams({date, baseCurrency}: {
+    date: moment.Moment,
+    baseCurrency: string,
+  }): string {
+    const dateFormatted = this.formatDate(date);
+    return (dateFormatted ? dateFormatted : 'latest') +
+      (baseCurrency ? '?base=' + baseCurrency : '');
+  }
+
+  getRangeParams({dateStart, dateEnd, baseCurrency}: {
+    dateStart: moment.Moment,
+    dateEnd: moment.Moment,
+    baseCurrency: string,
+  }): string {
+    const dateStartFormatted = this.formatDate(dateStart);
+    const dateEndFormatted = this.formatDate(dateEnd);
+
+    if (dateStartFormatted && dateEndFormatted) {
+      return `history?start_at=${dateStartFormatted}&end_at=${dateEndFormatted}` +
+        (baseCurrency ? '&base=' + baseCurrency : '');
+    }
+  }
+
+  get(formState?): Observable<Currency[]> {
+    const params: string = formState ? this.getParams(formState) : 'latest';
+
     return this.http.get(this.url + params).pipe(
       map((res: any) => Object.keys(res.rates)
         .sort()
@@ -28,7 +53,12 @@ export class CurrencyService {
     );
   }
 
-  getRange(params: string): Observable<Currency[]> {
+  getRange(formState): Observable<Currency[]> {
+    const params: string = this.getRangeParams(formState);
+    if (!params) {
+      return of([]);
+    }
+
     return this.http.get(this.url + params).pipe(
       map((res: any) =>
         Object.keys(res.rates)

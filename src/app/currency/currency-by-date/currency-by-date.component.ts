@@ -38,18 +38,7 @@ export class CurrencyByDateComponent implements OnInit {
         }
       ),
 
-      map((formState) => [
-        this.currencyService.formatDate(formState.date),
-        formState.baseCurrency,
-      ]),
-
-      map(([date, baseCurrency]) => {
-
-        return (date ? date : 'latest') +
-          (baseCurrency ? '?base=' + baseCurrency : '');
-      }),
-
-      switchMap((params: string) => this.currencyService.get(params)),
+      switchMap((formState) => this.currencyService.get(formState)),
     );
   }
 
